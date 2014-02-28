@@ -1,8 +1,10 @@
 Fabric==1.8.2
 ecdsa==0.10
+execnet==1.2.0
 mock==1.0.1
 paramiko==1.12.2
 py==1.4.20
 pycrypto==2.6.1
 pytest==2.5.2
+pytest-xdist==1.10
 wsgiref==0.1.2
