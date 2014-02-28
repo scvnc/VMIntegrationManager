@@ -35,13 +35,13 @@ class VMIntegrationManager():
 	
 	def freeze_state(self):
 		
-		self._frozen_id = 'inttest@{0}'.format(time())
+		self.freeze_id = 'inttest@{0}'.format(time())
 		
 		cmd = ['vboxmanage', 
 			   'snapshot', 
 			   self.vm_id, 
 			   'take',
-			   self._frozen_id]
+			   self.freeze_id]
 			   
 		self._call_cmd(cmd)
 		

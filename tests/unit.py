@@ -109,7 +109,8 @@ class VMIntegrationManagerFreezeStateTests(VMIntegrationManagerTestCase):
 		args = self.randintMock.call_args[0]
 		
 		self.randintMock.assert_called_once_with()
-		
+		self.assertEqual(self._mgr.freeze_id, self.mock_frz_id)
+	
 	def test_for_expected_cli_cmd(self):
 		
 		self.act()
