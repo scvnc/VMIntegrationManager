@@ -1,5 +1,7 @@
 import unittest
 from mock import patch, ANY
+import random
+import string
 from VMIntegrationManager import VMIntegrationManager
 from subprocess import CalledProcessError
 
@@ -127,7 +129,7 @@ class VMIntegrationManagerRestoreStateTests(VMIntegrationManagerTestCase):
 	
 	
 	def act(self):
-		self._mgr._frozen_id = self.mock_frz_id
+		self._mgr.freeze_id = self.mock_frz_id
 		self._mgr.restore_state()
 
 	def test_that_process_errors_raise(self):
@@ -148,3 +150,13 @@ class VMIntegrationManagerRestoreStateTests(VMIntegrationManagerTestCase):
 		self.assertEqual(cmd_list[2], self._mgr.vm_id)
 		self.assertEqual(cmd_list[3], 'restore')
 		self.assertEqual(cmd_list[4], self.mock_frz_id)
+
+class FreezeIdPropertyTests(VMIntegrationManagerTestCase):
+	
+	def test_property(self):
+		test_val = random.sample(string.ascii_uppercase, 10)
+		self._mgr.freeze_id = test_val
+		
+		self.assertEqual(self._mgr.freeze_id, test_val)
+		
+		

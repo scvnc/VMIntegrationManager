@@ -4,6 +4,15 @@ import logging
  
 class VMIntegrationManager():
 	
+	@property
+	def freeze_id(self):
+		return self._freeze_id
+		
+	@freeze_id.setter
+	def freeze_id(self, val):
+		self._freeze_id = val
+		
+	
 	def start_machine(self):
 		
 		cmd = ['vboxmanage', 
@@ -43,7 +52,7 @@ class VMIntegrationManager():
 			   'snapshot', 
 			   self.vm_id, 
 			   'restore',
-			   self._frozen_id]
+			   self.freeze_id]
 			   
 		self._call_cmd(cmd)
 		
