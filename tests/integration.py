@@ -17,6 +17,29 @@ class VMIntegrationManagerTestCase(unittest.TestCase):
 		self._mgr = VMIntegrationManager()
 		self._mgr.vm_id = 'Debian VPS Testing'
 	
+	def test_using_existing_freeze_state(self):
+		
+		self._mgr.freeze_id = 'Fresh_State'
+		
+		self._mgr.restore_state()
+		
+		self._mgr.start_machine()
+		
+		self.assertFalse(self.file_exists('testXYZ'))
+		
+		run('echo hi > testXYZ')
+		
+		self.assertTrue(self.file_exists('testXYZ'))
+		
+		fabric.network.disconnect_all()
+		self._mgr.kill_machine()
+		
+		self._mgr.restore_state()
+		
+		self._mgr.start_machine()
+		
+		self.assertFalse(self.file_exists('testXYZ'))
+	
 	def test_routine(self):
 		
 		self._mgr.start_machine()
@@ -41,6 +64,7 @@ class VMIntegrationManagerTestCase(unittest.TestCase):
 		# Are we back to where we were?
 		self.assertFalse(self.file_exists('testXYZ'))
 
+	
 	def file_exists(self, path):
 		return not run('test ! -f {0}'.format(path),
 			warn_only=True).succeeded
